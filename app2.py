@@ -1,84 +1,91 @@
 import os
-import streamlit as st
-import requests
+import chromadb
 from uuid import uuid4
+import streamlit as st
+import base64
+import requests
 from sentence_transformers import SentenceTransformer
-from sklearn.metrics.pairwise import cosine_similarity
-import numpy as np
+from dotenv import load_dotenv
+import streamlit as st
 
-# --- Load secrets from Streamlit Cloud ---
+
+
+# ----------------------------
+# 🔐 Credentials and Constants
+# ----------------------------
+
 CLIENT_ID = st.secrets["CLIENT_ID"]
 CLIENT_SECRET = st.secrets["CLIENT_SECRET"]
 APP_KEY = st.secrets["APP_KEY"]
+CIRCUIT_MODEL_NAME = "gpt-4.1"
+API_VERSION = "2025-01-01-preview"
 
-# --- Load embedding model ---
-embedder = SentenceTransformer("all-MiniLM-L6-v2")
+# ----------------------------
+# 🔐 Get Cisco CIRCUIT Token
+# ----------------------------
+def get_circuit_access_token(client_id, client_secret):
+    url = "https://id.cisco.com/oauth2/default/v1/token"
+    payload = "grant_type=client_credentials"
+    encoded = base64.b64encode(f"{client_id}:{client_secret}".encode()).decode()
 
-# --- In-memory vector store ---
-chunk_embeddings = []
-chunk_texts = []
+    headers = {
+        "Accept": "*/*",
+        "Content-Type": "application/x-www-form-urlencoded",
+        "Authorization": f"Basic {encoded}"
+    }
 
-# --- Chunk utility ---
+    response = requests.post(url, headers=headers, data=payload)
+    return response.json().get("access_token", None)
+
+# ----------------------------
+# 🔁 Chunking Utility
+# ----------------------------
 def chunk_code(code, chunk_size=20):
     lines = code.splitlines()
     return ["\n".join(lines[i:i+chunk_size]) for i in range(0, len(lines), chunk_size)]
 
-# --- Load and embed all code ---
+# ----------------------------
+# 🧠 Load and Embed Codebase
+# ----------------------------
 def load_and_embed_code(folder_path="./codebase"):
-    global chunk_embeddings, chunk_texts
-    chunk_embeddings.clear()
-    chunk_texts.clear()
-
     for root, _, files in os.walk(folder_path):
         for file in files:
             if file.endswith((".py", ".txt")):
                 with open(os.path.join(root, file), "r", encoding="utf-8") as f:
                     code = f.read()
                 chunks = chunk_code(code)
-                embeddings = embedder.encode(chunks)
-                chunk_texts.extend(chunks)
-                chunk_embeddings.extend(embeddings)
+                embeddings = embedder.encode(chunks).tolist()
+                ids = [str(uuid4()) for _ in chunks]
+                collection.add(documents=chunks, embeddings=embeddings, ids=ids)
 
-# --- Retrieve top-k similar chunks ---
+# ----------------------------
+# 🔍 Retrieve Relevant Chunks
+# ----------------------------
 def retrieve_code(prompt, top_k=3):
-    query_vec = embedder.encode([prompt])
-    sim_scores = cosine_similarity(query_vec, chunk_embeddings)[0]
-    top_indices = np.argsort(sim_scores)[::-1][:top_k]
-    return [chunk_texts[i] for i in top_indices]
+    query_vec = embedder.encode([prompt])[0].tolist()
+    results = collection.query(query_embeddings=[query_vec], n_results=top_k)
+    return list(set(results["documents"][0]))
 
-# --- Get CIRCUIT Access Token ---
-def get_circuit_access_token():
-    url = "https://id.cisco.com/oauth2/default/v1/token"
-    payload = "grant_type=client_credentials"
-    auth = f"{CLIENT_ID}:{CLIENT_SECRET}"
-    headers = {
-        "Accept": "*/*",
-        "Content-Type": "application/x-www-form-urlencoded",
-        "Authorization": "Basic " + base64_encode(auth)
-    }
-    response = requests.post(url, headers=headers, data=payload)
-    return response.json().get("access_token", "")
-
-# --- Base64 encoder ---
-def base64_encode(value):
-    import base64
-    return base64.b64encode(value.encode()).decode()
-
-# --- Generate response using CIRCUIT API ---
+# ----------------------------
+# 🧠 Generate Code via CIRCUIT API
+# ----------------------------
 def generate_code(user_prompt, retrieved_chunks):
-    token = get_circuit_access_token()
-    if not token:
+    access_token = get_circuit_access_token(CLIENT_ID, CLIENT_SECRET)
+
+    if not access_token:
         return "❌ Failed to get access token."
 
     context = "\n\n".join(retrieved_chunks)
-    full_prompt = f"""Use the following context:
+    full_prompt = f"""
+Use the following context from the project:
 
 {context}
 
-Now answer the instruction:
+Based on the above, perform this instruction:
 \"\"\"
 {user_prompt}
-\"\"\""""
+\"\"\"
+""".strip()
 
     payload = {
         "messages": [
@@ -92,37 +99,49 @@ Now answer the instruction:
     headers = {
         "Content-Type": "application/json",
         "Accept": "application/json",
-        "api-key": token
+        "api-key": access_token
     }
 
-    url = "https://chat-ai.cisco.com/openai/deployments/gpt-4o-mini/chat/completions"
+    api_url = f"https://chat-ai.cisco.com/openai/deployments/{CIRCUIT_MODEL_NAME}/chat/completions"
+
     try:
-        response = requests.post(url, headers=headers, json=payload)
-        return response.json()["choices"][0]["message"]["content"]
+        response = requests.post(api_url, headers=headers, json=payload)
+        response.raise_for_status()
+        return response.json()["choices"][0]["message"]["content"].strip()
     except Exception as e:
         return f"❌ Error: {str(e)}"
 
-# --- Streamlit UI ---
-st.set_page_config(page_title="RAG Code Assistant (In-Memory)", layout="wide")
-st.title("💬 RAG Code Generator (Streamlit Compatible)")
-st.markdown("Ask coding questions and get responses based on your local codebase.")
+# ----------------------------
+# 💾 Initialize Chroma and Embedder
+# ----------------------------
+chroma_client = chromadb.PersistentClient(path="./rag_db")
+collection = chroma_client.get_or_create_collection(name="codebase")
+embedder = SentenceTransformer("all-MiniLM-L6-v2")
+
+# ----------------------------
+# 🌐 Streamlit UI
+# ----------------------------
+st.set_page_config(page_title="Dynamic Customer KPIs Traffic Model Generation using RAG", layout="wide")
+st.title("Dynamic Customer KPIs Traffic Model Generation using RAG")
+st.markdown("Give a natural prompt and get code based on your project context!")
 
 with st.sidebar:
-    st.header("📦 Load Codebase")
+    st.header("📦 Codebase Loader")
     if st.button("🔄 Load & Embed Codebase"):
         load_and_embed_code()
-        st.success("✅ Codebase loaded and embedded!")
+        st.success("✅ Codebase embedded into Chroma DB.")
 
 prompt = st.text_area("💡 Enter your instruction:", height=150)
 
-if st.button("🚀 Generate"):
+if st.button("🚀 Generate Output"):
     if not prompt.strip():
         st.warning("⚠️ Please enter a prompt.")
-    elif not chunk_embeddings:
-        st.warning("⚠️ Codebase not loaded. Click the sidebar button.")
     else:
-        with st.spinner("⏳ Thinking..."):
-            chunks = retrieve_code(prompt)
-            output = generate_code(prompt, chunks)
+        st.info("⏳ Thinking...")
+        relevant_chunks = retrieve_code(prompt)
+        if not relevant_chunks:
+            st.warning("⚠️ No relevant context found.")
+        else:
+            output = generate_code(prompt, relevant_chunks)
             st.success("✅ Output Generated!")
             st.code(output, language="python")
