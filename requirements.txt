@@ -1,7 +1,6 @@
 streamlit
 sentence-transformers
 transformers
-torch
 accelerate
 requests
 protobuf==3.20.*
