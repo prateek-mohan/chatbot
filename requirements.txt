@@ -1,9 +1,13 @@
+# Core dependencies
 streamlit
+chromadb>=0.4.24  # Make sure you're using a Chroma version that needs sqlite3 >= 3.35.0
 sentence-transformers
-transformers
-accelerate
 requests
-protobuf==3.20.*
-numpy<1.24
 python-dotenv
-scikit-learn
+
+# Used to compare version of sqlite
+packaging
+
+# ⚠️ NOTE: sqlite3 is part of Python's standard library.
+# You must ensure system sqlite3 version is >= 3.35.0 manually.
+# See: https://docs.trychroma.com/troubleshooting#sqlite
