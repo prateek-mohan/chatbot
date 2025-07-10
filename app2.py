@@ -7,6 +7,13 @@ import requests
 from sentence_transformers import SentenceTransformer
 from dotenv import load_dotenv
 import streamlit as st
+import sqlite3
+from packaging import version
+import sys
+
+if version.parse(sqlite3.sqlite_version) < version.parse("3.35.0"):
+    sys.exit(f"❌ Your SQLite version is {sqlite3.sqlite_version}. ChromaDB requires >= 3.35.0. "
+             f"See https://docs.trychroma.com/troubleshooting#sqlite to upgrade.")
 
 
 
