@@ -1,0 +1,124 @@
+root@q18-m5-ru16:/localdisk/FWA_Callmodel# cat Calls_Tmo_Consumer_Ru16_Dpdk2_Tuned_Only5G.cfg
+## TMO-Consumer-Call-Model-2
+## Version: 2.00
+## Date   : Mon June 24 20:40:06 UTC 2024
+## Profile: 10.84.106.232
+## Servers: q18-m5-ru16-DpDk2
+## Notes  : 269K Sessions
+
+
+#5G Call-Model
+# instance: 25 call-model: lte1pdn5g_mb   data-gen: https
+create_client {10.84.106.232 user_config /localdisk/FWA_Callmodel/5G_smf_data_saegw_gnb.cfg call_model makebreak1 imsi 31148010510000 imei 350027240100000 msisdn 2001192000 n11 173.25.53.81/24 n3u 173.25.185.1/24 af 1 callgen_type lattice_clp region1 1 set1 1 ptr1 1  slave_start_delay 24000 stargen_generator none src_port 15000 dst_port 443 rsa 174.25.53.25 rv6sa 2004:174:25::53:25 if_name tun-24 clp 65175  dynamic_address enable vr 1 call_num 5250 }
+
+# instance: 26 call-model: lte1pdn5g_ia   data-gen: https
+create_client {10.84.106.232 user_config /localdisk/FWA_Callmodel/5G_smf_data_saegw_gnb.cfg call_model ue-idle-active imsi 31148010520000 imei 350027250100000 msisdn 2001200000 n11 173.25.53.83/24 n3u 173.25.186.1/24 af 2 callgen_type lattice_clp region1 2 set1 2 ptr1 2  slave_start_delay 25000 stargen_generator none src_port 15000 dst_port 443 rsa 174.25.53.26 rv6sa 2004:174:25::53:26 if_name tun-25 clp 65178  vr 1 }
+
+#defaults
+start_cm_delay 10000
+4G_5G_ho_rate 5
+4G_s1_ho_rate 20
+4G_x2_ho_rate 20
+
+4gmb-rate 10
+4gmb-count 500
+5gmb-rate 20
+5gmb-count 500
+ia-rate 105
+ia-count 500
+
+5G_HO_sub_num 10
+5G_ho_rate 10
+5G_idle_active_rate 21
+5G_idle_active_sub_num 6000
+5g4g-rate 5
+active_delay 0
+break-delay 1142
+break_delay 1142
+break_suspend_delay 11
+call_num 5000
+call_rate 7
+cli 10.84.106.232
+data_tx_both enable
+enb-count 80
+eps_interwork_flag WITH_N26
+epsfb-rate 10
+flows_per_address 32
+ggsn 192.11.23.212
+gn_net ipv4
+gnb-count 80
+ho_delay 571
+idle_delay 0
+idle_delay2 30
+idle_timeout 10000
+if_start 1
+init_delay 1142
+inter_ho_delay 571
+lattice_log_level error
+locality LOC1
+lte-wifi-rate 10
+lte-wifi-count 100
+lte_ho_delay 1142
+make-delay 1142
+make_delay 1142
+make_suspend_delay 11
+mcc 311
+mnc 480
+n11_client_port 8000
+n11_net ipv4
+n11_net2 ipv4
+n11_server_port 9000
+n2-delay 90
+n2ho_dft_interAMF 10
+n3_net ipv4
+n3_net2 ipv4
+n3_net3 ipv4
+no_overlap enable
+nr_wifi_rate 10
+nrf_ip 173.25.6.2
+nrf_port 5000
+nssai_sd1 000002
+nssai_sst1 01
+pdn1 fast.t-mobile2.com
+pdn2 ims
+pdn3 simple
+pdn_delay 1
+pdnmbr_rate 25
+pdntype1 ipv6
+#pdntype1 ipv4
+pdntype2 ipv6
+pdntype3 ipv4v6
+per_flow ""
+pgw 192.11.23.212
+pgw2 192.11.23.212
+pgwtype ip
+s11_net ipv4
+s11_net2 ipv4
+s1_ho_delay 571
+
+s1u_net ipv4
+s1u_net2 ipv4
+s2_net ipv4
+s5_net ipv4
+sgw 192.11.23.204
+sgw2 192.11.23.204
+sgw_net ipv4
+smf1_n11_vip 192.11.23.207
+smf1_n11_vip_port 8090
+threadcnt 4
+txrate 38
+url_file /localdisk/FWA_Callmodel/hb_mix.orig
+use_eventbridge ""
+verbose 1
+wait-timeout 800
+wifi_ho_delay 1142
+
+s1ho-rate 70
+s1ho-count 500
+x2ho-rate 20
+x2ho-count 500
+xnho-rate 20
+xnho-count 500
+n2ho-rate 20
+n2ho-count 500
+root@q18-m5-ru16:/localdisk/FWA_Callmodel#

@@ -1,0 +1,210 @@
+root@q18-m5-ru16:/localdisk/FWA_Callmodel# cat Calls_Tmo_Consumer_Ru16_Dpdk2_Tuned_DNS_Snoop.cfg
+## TMO-Consumer-Call-Model-2
+## Version: 2.00
+## Date   : Mon June 24 20:40:06 UTC 2024
+## Profile: 10.84.106.232
+## Servers: q18-m5-ru16-DpDk2
+## Notes  : 269K Sessions
+
+#instance: 1 call-model: lte2pdnsae_mb   data-gen: https
+create_client {10.84.106.232 user_config /localdisk/FWA_Callmodel/tb15_perf_saegw_cups_enb.cfg call_model makebreak1 imsi 31148010270000 imei 450027000100000 msisdn 3001000000 s11 173.25.53.1/24 s1u 173.25.161.1/24 af 1 callgen_type lattice_clp slave_start_delay 0 stargen_generator none src_port 15000 dst_port 443 rsa 174.25.53.1 rv6sa  2004:174:25::53:1 if_name tun-0 clp 65103 dynamic_address enable vr 1 call_num 5250 }
+
+#instance: 2 call-model: lte2pdnsae_mb   data-gen: https
+create_client {10.84.106.232 user_config /localdisk/FWA_Callmodel/tb15_perf_saegw_cups_enb.cfg call_model makebreak1 imsi 31148010280000 imei 450027010100000 msisdn 3001008000 s11 173.25.53.3/24 s1u 173.25.162.1/24 af 2 callgen_type lattice_clp slave_start_delay 1000 stargen_generator none src_port 15000 dst_port 443 rsa 174.25.53.2 rv6sa 2004:174:25::53:2 if_name tun-1 clp 65106 dynamic_address enable vr 1 call_num 5250 }
+
+#instance: 3 call-model: lte2pdnsae_mb   data-gen: https
+create_client {10.84.106.232 user_config /localdisk/FWA_Callmodel/tb15_perf_saegw_cups_enb.cfg call_model ue-idle-active imsi 31148010290000 imei 450027020100000 msisdn 3001016000 s11 173.25.53.5/24 s1u 173.25.163.1/24 af 3 callgen_type lattice_clp slave_start_delay 2000 stargen_generator none src_port 15000 dst_port 443 rsa 174.25.53.3 rv6sa 2004:174:25::53:3 if_name tun-2 clp 65109 dynamic_address enable vr 1 call_num 5250 }
+
+#instance: 4 call-model: lte2pdnsae_mb   data-gen: https
+create_client {10.84.106.232 user_config /localdisk/FWA_Callmodel/tb15_perf_saegw_cups_enb.cfg call_model ue-idle-active imsi 31148010300000 imei 450027030100000 msisdn 3001024000 s11 173.25.53.7/24 s1u 173.25.164.1/24 af 4 callgen_type lattice_clp slave_start_delay 3000 stargen_generator none src_port 15000 dst_port 443 rsa 174.25.53.4 rv6sa 2004:174:25::53:4 if_name tun-3 clp 65112 dynamic_address enable vr 1 call_num 5250 }
+
+#instance: 5 call-model: ueidleactive2   data-gen: https
+create_client {10.84.106.232 user_config /localdisk/FWA_Callmodel/tb15_perf_saegw_cups_enb.cfg call_model ue-idle-active imsi 31148010310000 imei 450027040100000 msisdn 3001032000 s11 173.25.53.9/24 s1u 173.25.165.1/24 af 6 callgen_type lattice_clp slave_start_delay 4000 stargen_generator none src_port 15000 dst_port 443 rsa 174.25.53.5 rv6sa 2004:174:25::53:5 if_name tun-4 clp 65115  vr 1 }
+
+#instance: 6 call-model: ueidleactive2   data-gen: https
+create_client {10.84.106.232 user_config /localdisk/FWA_Callmodel/tb15_perf_saegw_cups_enb.cfg call_model ue-idle-active imsi 31148010320000 imei 450027050100000 msisdn 3001040000 s11 173.25.53.11/24 s1u 173.25.166.1/24 af 7 callgen_type lattice_clp slave_start_delay 5000 stargen_generator none src_port 15000 dst_port 443 rsa 174.25.53.6 rv6sa 2004:174:25::53:6 if_name tun-5 clp 65118  vr 1 }
+
+#instance: 7 call-model: ueidleactive2   data-gen: https
+create_client {10.84.106.232 user_config /localdisk/FWA_Callmodel/tb15_perf_saegw_cups_enb.cfg call_model ue-idle-active imsi 31148010330000 imei 450027060100000 msisdn 3001048000 s11 173.25.53.13/24 s1u 173.25.167.1/24 af 8 callgen_type lattice_clp slave_start_delay 6000 stargen_generator none src_port 15000 dst_port 443 rsa 174.25.53.7 rv6sa 2004:174:25::53:7 if_name tun-6 clp 65121  vr 1 }
+
+#instance: 8 call-model: ueidleactive2   data-gen: https
+create_client {10.84.106.232 user_config /localdisk/FWA_Callmodel/tb15_perf_saegw_cups_enb.cfg call_model ue-idle-active imsi 31148010340000 imei 450027070100000 msisdn 3001056000 s11 173.25.53.15/24 s1u 173.25.168.1/24 af 9 callgen_type lattice_clp slave_start_delay 7000 stargen_generator none src_port 15000 dst_port 443 rsa 174.25.53.8 rv6sa 2004:174:25::53:8 if_name tun-7 clp 65124  vr 1 }
+
+#instance: 9 call-model: x2handover   data-gen: https
+create_client {10.84.106.232 user_config /localdisk/FWA_Callmodel/tb15_perf_saegw_ho_enb.cfg call_model s1ho imsi 31148010350000 imei 450027080100000 msisdn 3001064000 s11 173.25.53.17/24 s11-2 173.25.53.19/24 s1u-2 173.25.60.1/24 s1u 173.25.169.1/24 af 9 callgen_type lattice_clp slave_start_delay 8000 stargen_generator none src_port 15000 dst_port 443 rsa 174.25.53.9 rv6sa 2004:174:25::53:9 if_name tun-8 clp 65127  vr 1 }
+
+#instance: 10 call-model: x2handover   data-gen: https
+create_client {10.84.106.232 user_config /localdisk/FWA_Callmodel/tb15_perf_saegw_ho_enb.cfg call_model s1ho imsi 31148010360000 imei 450027090100000 msisdn 3001072000 s11 173.25.53.21/24 s11-2 173.25.53.23/24 s1u-2 173.25.60.10/24 s1u 173.25.170.1/24 af 10 callgen_type lattice_clp slave_start_delay 9000 stargen_generator none src_port 15000 dst_port 443 rsa 174.25.53.10 rv6sa 2004:174:25::53:10 if_name tun-9 clp 65130  vr 1 }
+
+#instance: 11 call-model: x2handover   data-gen: https
+create_client {10.84.106.232 user_config /localdisk/FWA_Callmodel/tb15_perf_saegw_ho_enb.cfg call_model s1ho imsi 31148010370000 imei 450027100100000 msisdn 3001080000 s11 173.25.53.25/24 s11-2 173.25.53.27/24 s1u-2 173.25.60.20/24 s1u 173.25.171.1/24 af 11 callgen_type lattice_clp slave_start_delay 10000 stargen_generator none src_port 15000 dst_port 443 rsa 174.25.53.11 rv6sa 2004:174:25::53:11 if_name tun-10 clp 65133  vr 1 }
+
+#instance: 12 call-model: x2handover   data-gen: https
+create_client {10.84.106.232 user_config /localdisk/FWA_Callmodel/tb15_perf_saegw_ho_enb.cfg call_model s1ho imsi 31148010380000 imei 450027110100000 msisdn 3001088000 s11 173.25.53.29/24 s11-2 173.25.53.31/24 s1u-2 173.25.60.30/24 s1u 173.25.172.1/24 af 12 callgen_type lattice_clp slave_start_delay 11000 stargen_generator none src_port 15000 dst_port 443 rsa 174.25.53.12 rv6sa 2004:174:25::53:12 if_name tun-11 clp 65136  vr 1 }
+
+#instance: 13 call-model: s1handover   data-gen: https
+create_client {10.84.106.232 user_config /localdisk/FWA_Callmodel/tb15_perf_saegw_ho_enb.cfg call_model s1ho imsi 31148010390000 imei 450027120100000 msisdn 3001096000 s11 173.25.53.33/24 s11-2 173.25.53.35/24 s1u-2 173.25.60.40/24 s1u 173.25.173.1/24 af 13 callgen_type lattice_clp slave_start_delay 12000 stargen_generator none src_port 15000 dst_port 443 rsa 174.25.53.13 rv6sa 2004:174:25::53:13 if_name tun-12 clp 65139  vr 1 }
+
+#instance: 14 call-model: s1handover   data-gen: https
+create_client {10.84.106.232 user_config /localdisk/FWA_Callmodel/tb15_perf_saegw_ho_enb.cfg call_model s1ho imsi 31148010400000 imei 450027130100000 msisdn 3001104000 s11 173.25.53.37/24 s11-2 173.25.53.39/24 s1u-2 173.25.60.50/24 s1u 173.25.174.1/24 af 14 callgen_type lattice_clp slave_start_delay 13000 stargen_generator none src_port 15000 dst_port 443 rsa 174.25.53.14 rv6sa 2004:174:25::53:14 if_name tun-13 clp 65142  vr 1 }
+
+#instance: 15 call-model: s1handover   data-gen: https
+create_client {10.84.106.232 user_config /localdisk/FWA_Callmodel/tb15_perf_saegw_ho_enb.cfg call_model s1ho imsi 31148010410000 imei 450027140100000 msisdn 3001112000 s11 173.25.53.41/24 s11-2 173.25.53.43/24 s1u-2 173.25.60.60/24 s1u 173.25.175.1/24 af 15 callgen_type lattice_clp slave_start_delay 14000 stargen_generator none src_port 15000 dst_port 443 rsa 174.25.53.15 rv6sa 2004:174:25::53:15 if_name tun-14 clp 65145  vr 1 }
+
+#instance: 16 call-model: s1handover   data-gen: https
+create_client {10.84.106.232 user_config /localdisk/FWA_Callmodel/tb15_perf_saegw_ho_enb.cfg call_model s1ho imsi 31148010420000 imei 450027150100000 msisdn 3001120000 s11 173.25.53.45/24 s11-2 173.25.53.47/24 s1u-2 173.25.60.70/24 s1u 173.25.176.1/24 af 16 callgen_type lattice_clp slave_start_delay 15000 stargen_generator none src_port 15000 dst_port 443 rsa 174.25.53.16 rv6sa 2004:174:25::53:16 if_name tun-15 clp 65148  vr 1 }
+
+#instance: 17 call-model: s1ho   data-gen: https
+create_client {10.84.106.232 user_config /localdisk/FWA_Callmodel/tb15_perf_saegw_ho_enb.cfg call_model s1ho imsi 31148010430000 imei 450027160100000 msisdn 3001128000 s11 173.25.53.49/24 s11-2 173.25.53.51/24 s1u-2 173.25.60.80/24 s1u 173.25.177.1/24 af 17 callgen_type lattice_clp slave_start_delay 16000 stargen_generator none src_port 15000 dst_port 443 rsa 174.25.53.17 rv6sa 2004:174:25::53:17 if_name tun-16 clp 65151  vr 1 }
+
+#instance: 18 call-model: s1ho   data-gen: https
+create_client {10.84.106.232 user_config /localdisk/FWA_Callmodel/tb15_perf_saegw_ho_enb.cfg call_model s1ho imsi 31148010440000 imei 450027170100000 msisdn 3001136000 s11 173.25.53.53/24 s11-2 173.25.53.55/24 s1u-2 173.25.60.90/24 s1u 173.25.178.1/24 af 18 callgen_type lattice_clp slave_start_delay 17000 stargen_generator none src_port 15000 dst_port 443 rsa 174.25.53.18 rv6sa 2004:174:25::53:18 if_name tun-17 clp 65154  vr 1 }
+
+####### Instance 19 to 22 Instance are for DNS Snooping ##########
+
+#instance: 19 call-model: idle-active   data-gen: https
+create_client {10.84.106.232 user_config /localdisk/FWA_Callmodel/tb15_perf_saegw_cups_enb.cfg call_model static1 imsi 31148010450000 imei 450027180100000 msisdn 3001144000 s11 173.25.53.57/24 s11-2 173.25.53.59/24 s1u-2 173.25.60.100/24 s1u 173.25.179.1/24 af 19 callgen_type lattice_clp slave_start_delay 18000 stargen_generator none src_port 15000 dst_port 443 rsa 174.25.53.19 rv6sa 2004:174:25::53:19 if_name tun-18 clp 65157  vr 1 call_num 5000 pdntype1 ipv4  }
+
+#instance: 20 call-model: idle-active   data-gen: https
+create_client {10.84.106.232 user_config /localdisk/FWA_Callmodel/tb15_perf_saegw_cups_enb.cfg call_model static1 imsi 31148010460000 imei 450027190100000 msisdn 3001152000 s11 173.25.53.61/24 s11-2 173.25.53.63/24 s1u-2 173.25.60.110/24 s1u 173.25.180.1/24 af 20 callgen_type lattice_clp slave_start_delay 19000 stargen_generator none src_port 15000 dst_port 443 rsa 174.25.53.20 rv6sa 2004:174:25::53:20 if_name tun-19 clp 65160  vr 1 call_num 5000 pdntype1 ipv4 }
+
+#instance: 21 call-model: idle-active   data-gen: https
+create_client {10.84.106.232 user_config /localdisk/FWA_Callmodel/tb15_perf_saegw_cups_enb.cfg call_model static1 imsi 31148010470000 imei 450027200100000 msisdn 3001160000 s11 173.25.53.65/24 s11-2 173.25.53.67/24 s1u-2 173.25.60.120/24 s1u 173.25.181.1/24 af 20 callgen_type lattice_clp slave_start_delay 20000 stargen_generator none src_port 15000 dst_port 443 rsa 174.25.53.21 rv6sa 2004:174:25::53:21 if_name tun-20 clp 65163  vr 1 call_num 5000 pdntype1 ipv4 }
+
+#instance: 22 call-model: idle-active   data-gen: https
+create_client {10.84.106.232 user_config /localdisk/FWA_Callmodel/tb15_perf_saegw_cups_enb.cfg call_model static1 imsi 31148010480000 imei 450027210100000 msisdn 3001168000 s11 173.25.53.69/24 s11-2 173.25.53.71/24 s1u-2 173.25.60.130/24 s1u 173.25.182.1/24 af 20 callgen_type lattice_clp slave_start_delay 21000 stargen_generator none src_port 15000 dst_port 443 rsa 174.25.53.22 rv6sa 2004:174:25::53:22 if_name tun-21 clp 65166  vr 1 call_num 5000 pdntype1 ipv4 }
+
+####### Instance 19 to 22 Instance are for DNS Snooping ##########
+
+#instance: 23 call-model: idle-active   data-gen: https
+create_client {10.84.106.232 user_config /localdisk/FWA_Callmodel/tb15_perf_saegw_cups_enb.cfg call_model idle-active imsi 31148010490000 imei 450027220100000 msisdn 3001176000 s11 173.25.53.73/24 s11-2 173.25.53.75/24 s1u-2 173.25.60.140/24 s1u 173.25.183.1/24 af 20 callgen_type lattice_clp slave_start_delay 22000 stargen_generator none src_port 15000 dst_port 443 rsa 174.25.53.23 rv6sa 2004:174:25::53:23 if_name tun-22 clp 65169  vr 1 call_num 5000 }
+
+#instance: 24 call-model: idle-active   data-gen: https
+create_client {10.84.106.232 user_config /localdisk/FWA_Callmodel/tb15_perf_saegw_cups_enb.cfg call_model idle-active imsi 31148010500000 imei 450027230100000 msisdn 3001184000 s11 173.25.53.77/24 s11-2 173.25.53.79/24 s1u-2 173.25.60.150/24 s1u 173.25.184.1/24 af 20 callgen_type lattice_clp slave_start_delay 23000 stargen_generator none src_port 15000 dst_port 443 rsa 174.25.53.24 rv6sa 2004:174:25::53:24 if_name tun-23 clp 65172  vr 1 call_num 5000 }
+
+#5G Call-Model
+# instance: 25 call-model: lte1pdn5g_mb   data-gen: https
+#create_client {10.84.106.232 user_config /localdisk/FWA_Callmodel/5G_smf_data_saegw_gnb.cfg call_model makebreak1 imsi 31148010510000 imei 350027240100000 msisdn 2001192000 n11 173.25.53.81/24 n3u 173.25.185.1/24 af 1 callgen_type lattice_clp region1 1 set1 1 ptr1 1  slave_start_delay 24000 stargen_generator none src_port 15000 dst_port 443 rsa 174.25.53.25 rv6sa 2004:174:25::53:25 if_name tun-24 clp 65175  dynamic_address enable vr 1 call_num 5250 }
+
+# instance: 26 call-model: lte1pdn5g_ia   data-gen: https
+#create_client {10.84.106.232 user_config /localdisk/FWA_Callmodel/5G_smf_data_saegw_gnb.cfg call_model ue-idle-active imsi 31148010520000 imei 350027250100000 msisdn 2001200000 n11 173.25.53.83/24 n3u 173.25.186.1/24 af 2 callgen_type lattice_clp region1 2 set1 2 ptr1 2  slave_start_delay 25000 stargen_generator none src_port 15000 dst_port 443 rsa 174.25.53.26 rv6sa 2004:174:25::53:26 if_name tun-25 clp 65178  vr 1 }
+
+## Fragmantation Calls ##
+
+#instance: 27 call-model: lte2pdnsae_mb   data-gen: https
+create_client {10.84.106.232 user_config /localdisk/FWA_Callmodel/tb15_perf_saegw_cups_enb.cfg call_model static1 imsi 31148011110000 imei 350027260100000 msisdn 2001300000 s11 173.25.53.85/24 s1u 173.25.187.1/24 af 27 callgen_type lattice_clp slave_start_delay 26000 stargen_generator none src_port 15000 dst_port 443 rsa 174.25.53.27 rv6sa 2004:174:25::53:27 if_name tun-26 clp 65181 dynamic_address enable vr 1 call_num 2500 pdntype1 ipv4 }
+
+#instance: 28 call-model: lte2pdnsae_mb   data-gen: https
+create_client {10.84.106.232 user_config /localdisk/FWA_Callmodel/tb15_perf_saegw_cups_enb.cfg call_model static1 imsi 31148011120000 imei 31148011120000 msisdn 2001400000 s11 173.25.53.87/24 s1u 173.25.188.1/24 af 28 callgen_type lattice_clp slave_start_delay 27000 stargen_generator none src_port 15000 dst_port 443 rsa 174.25.53.28 rv6sa 2004:174:25::53:28 if_name tun-27 clp 65184 dynamic_address enable vr 1 call_num 2500 pdntype1 ipv4  }
+
+#instance: 29 UDP connected mode traffic
+create_client {10.84.106.232 user_config /localdisk/FWA_Callmodel/tb15_perf_saegw_cups_enb.cfg call_model static1 imsi 31148011130000 imei 350027280100000 msisdn 2001500000 s11 173.25.53.89/24 s1u 173.25.189.1/24 af 29 callgen_type lattice_clp slave_start_delay 29000 stargen_generator none src_port 15000 dst_port 443 rsa 174.25.53.29 rv6sa 2004:174:25::53:29 if_name tun-28 clp 65187 dynamic_address enable vr 1 call_num 5000 pdntype1 ipv4 }
+
+#defaults
+start_cm_delay 10000
+4G_5G_ho_rate 5
+4G_s1_ho_rate 20
+4G_x2_ho_rate 20
+
+4gmb-rate 10
+4gmb-count 500
+5gmb-rate 20
+5gmb-count 500
+ia-rate 105
+ia-count 500
+
+5G_HO_sub_num 10
+5G_ho_rate 10
+5G_idle_active_rate 21
+5G_idle_active_sub_num 6000
+5g4g-rate 5
+active_delay 0
+break-delay 1142
+break_delay 1142
+break_suspend_delay 11
+call_num 5000
+call_rate 7
+cli 10.84.106.232
+data_tx_both enable
+enb-count 80
+eps_interwork_flag WITH_N26
+epsfb-rate 10
+flows_per_address 32
+ggsn 192.11.23.212
+gn_net ipv4
+gnb-count 80
+ho_delay 571
+idle_delay 0
+idle_delay2 30
+idle_timeout 10000
+if_start 1
+init_delay 1142
+inter_ho_delay 571
+lattice_log_level error
+locality LOC1
+lte-wifi-rate 10
+lte-wifi-count 100
+lte_ho_delay 1142
+make-delay 1142
+make_delay 1142
+make_suspend_delay 11
+mcc 311
+mnc 480
+n11_client_port 8000
+n11_net ipv4
+n11_net2 ipv4
+n11_server_port 9000
+n2-delay 90
+n2ho_dft_interAMF 10
+n3_net ipv4
+n3_net2 ipv4
+n3_net3 ipv4
+no_overlap enable
+nr_wifi_rate 10
+nrf_ip 173.25.6.2
+nrf_port 5000
+nssai_sd1 000002
+nssai_sst1 01
+pdn1 fast.t-mobile2.com
+pdn2 ims
+pdn3 simple
+pdn_delay 1
+pdnmbr_rate 25
+pdntype1 ipv6
+#pdntype1 ipv4
+pdntype2 ipv6
+pdntype3 ipv4v6
+per_flow ""
+pgw 192.11.23.212
+pgw2 192.11.23.212
+pgwtype ip
+s11_net ipv4
+s11_net2 ipv4
+s1_ho_delay 571
+
+s1u_net ipv4
+s1u_net2 ipv4
+s2_net ipv4
+s5_net ipv4
+sgw 192.11.23.204
+sgw2 192.11.23.204
+sgw_net ipv4
+smf1_n11_vip 192.11.23.207
+smf1_n11_vip_port 8090
+threadcnt 4
+txrate 38
+url_file /localdisk/FWA_Callmodel/hb_mix.orig
+use_eventbridge ""
+verbose 1
+wait-timeout 800
+wifi_ho_delay 1142
+
+s1ho-rate 70
+s1ho-count 500
+x2ho-rate 20
+x2ho-count 500
+xnho-rate 20
+xnho-count 500
+n2ho-rate 20
+n2ho-count 500
+root@q18-m5-ru16:/localdisk/FWA_Callmodel#

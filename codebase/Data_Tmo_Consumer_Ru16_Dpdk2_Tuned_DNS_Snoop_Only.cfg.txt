@@ -1,0 +1,50 @@
+
+
+root@q18-m5-ru16:/localdisk/FWA_Callmodel# cat Data_Tmo_Consumer_Ru16_Dpdk2_Tuned_DNS_Snoop_Only.cfg
+## TMO Consumer-Call-Model
+## Version: 2.00
+## Date   : Wed May 26 09:35:12 UTC 2021
+## Profile: q18-m5-ru16
+## Servers: 28 Gik Data
+## Notes  :
+
+
+###DNS_Snooping created by commmenting instance 10
+create_client {10.84.106.232 handle M5-b25-dpdk-sa1-10-c callgen_type none callgen_addr_list {{10.84.106.232 65157} {10.84.106.232 65160}} stargen_generator dnsGen dst_port 53 rsa_list "\{{174.25.54.10 53} {2004:174:25::54:10 53}\}" dpdk_args_udp {-mem_info 256 -num_of_cores 1 -base_core 19 -port_info 0000:d8:05.1 -buffer 8296 -flow_control 1 -numa 1 -auto_adj 1}  phyif dpdk1_dummy tag_vlan 1571 next_hop_ip 173.25.99.99 x_isp_mac_addr f0:25:72:ab:d4:c1 reuse_port "" txrate 1000 xml_file /localdisk/dns-snoop.xml dpdk_start_delay 18 d_url_filename /localdisk/dns_url_final.txt dns_snooping_ip_count 190 multi_rsa_same_sub 1 }
+
+
+create_server {10.84.106.232 handle M5-b25-dpdk-sa1-10-s stargen_generator dnsServer rsa_list "\{{174.25.54.10 53} {2004:174:25::54:10 53}\}" src_port 53 dst_port 53 listenport 53 dpdk_args_udp {-mem_info 256 -num_of_cores 1 -base_core 20 -port_info 0000:d8:05.2 -buffers 8296 -flow_control 1 -max_con 300000 -numa 1 -auto_adj 1} phyif dpdk2_dummy tag_vlan 1581 next_hop_ip 174.25.99.99 chassi_isp_ipv6 2004:174:25::99:99 reuse_port "" txrate 1000 xml_file /localdisk/dns-snoop.xml dpdk_start_delay 18 d_url_filename /localdisk/dns_url_final.txt dns_snooping_ip_count 190 multi_rsa_same_sub 1 }
+
+
+
+###DNS_Snooping created by commmenting instance 11
+create_client {10.84.106.232 handle M5-b25-dpdk-sa1-11-c callgen_type none callgen_addr_list {{10.84.106.232 65163} {10.84.106.232 65166}} stargen_generator dnsGen dst_port 53 rsa_list "\{{174.25.54.11 53} {2004:174:25::54:11 53}\}" dpdk_args_udp {-mem_info 256 -num_of_cores 1 -base_core 21 -port_info 0000:d8:05.3 -buffer 8296 -flow_control 1 -numa 1 -auto_adj 1}  phyif dpdk1_dummy tag_vlan 1571 next_hop_ip 173.25.99.99 x_isp_mac_addr f0:25:72:ab:d4:c1 reuse_port "" txrate 1000 xml_file /localdisk/dns-snoop-ipv6.xml dpdk_start_delay 20 d_url_filename /localdisk/dns_url_final.txt dns_snooping_ip_count 190 multi_rsa_same_sub 1 }
+
+create_server {10.84.106.232 handle M5-b25-dpdk-sa1-11-s stargen_generator dnsServer rsa_list "\{{174.25.54.11 53} {2004:174:25::54:11 53}\}" src_port 53 dst_port 53 listenport 53 dpdk_args_udp {-mem_info 256 -num_of_cores 1 -base_core 22 -port_info 0000:d8:05.4 -buffers 8296 -flow_control 1 -max_con 300000 -numa 1 -auto_adj 1}  phyif dpdk2_dummy tag_vlan 1581 next_hop_ip 174.25.99.99 chassi_isp_ipv6 2004:174:25::99:99 reuse_port "" txrate 1000 xml_file /localdisk/dns-snoop-ipv6.xml dpdk_start_delay 20 d_url_filename /localdisk/dns_url_final.txt dns_snooping_ip_count 190 multi_rsa_same_sub 1 }
+
+
+##Global Parameter##
+
+multi_rsa_same_sub 1
+stargen_path /localdisk/stargen-93196/stargen-dpdk
+#flows_per_subscriber 40
+#target_flows 150000
+#mbps 4800
+#download_size_in_mb 0.06
+#gtp_src_port_rand 0
+#udp_start_byte 55
+#hex_dump ""
+dpdk_statistics ""
+use_eventbridge ""
+data_tx_both ""
+#average_pkt_size 1350
+#persistent_flow_creation_percentage 8
+cli 127.0.0.1
+dpdk_rt_enable ""
+#throughput_in_mbps 4800
+#flow_creation_and_mk_bk_rate 200
+txrate 1000
+dst_port 53
+dns_snooping_ip_count 190
+reuse_port ""
+root@q18-m5-ru16:/localdisk/FWA_Callmodel#
